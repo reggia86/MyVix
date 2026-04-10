@@ -34,7 +34,7 @@ Vai sul tuo repository GitHub dell'addon -> **Settings > Secrets and variables >
 
 1.  **`SSH_PRIVATE_KEY`**: Copia e incolla l'intero contenuto della tua **chiave privata** (il file senza `.pub`, es. `cat ~/.ssh/id_ed25519`). Deve includere `-----BEGIN OPENSSH PRIVATE KEY-----` e la fine.
 2.  **`USERNAME_GITHUB`**: Inserisci il tuo nome utente GitHub (es. `qwertyuiop8899`).
-3.  **`PROJECT_NAME`**: Scegli un nome per il tuo addon (es. `TUO_USERNAME`). Questo determinerà l'URL finale, quindi mettilo UNIVOCO: `https://selfvix.beamup.dev/manifest.json`.
+3.  **`PROJECT_NAME`**: Scegli un nome per il tuo addon (es. `TUO_USERNAME`). Questo determinerà l'URL finale, quindi mettilo UNIVOCO: `https://TUO_PROGETTO.a.baby-beamup.club/manifest.json`.
 
 ---
 
@@ -47,7 +47,7 @@ Puoi seguire l'avanzamento nella scheda **"Actions"** del tuo repository su GitH
 
 ## 🔗 URL dell'Addon
 Dopo il primo deploy riuscito, l'addon sarà accessibile su:
-`https://[IL-TUO-PROJECT-NAME].beamup.dev/manifest.json`
+`https://[IL-TUO-PROJECT-NAME].a.baby-beamup.club/manifest.json`
 
 ## ⚠️ Note Tecniche
 - BeamUp è un server basato su **Dokku**. 
