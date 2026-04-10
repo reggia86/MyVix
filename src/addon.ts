@@ -12,7 +12,7 @@ const manifest = {
     name: 'SelfVix🤌',
     description: 'Self VixSrc and VixCloud',
     logo: 'https://icv.stremio.dpdns.org/prisonmike.png',
-    background: 'https://i.imgur.com/ebLhy9z.jpeg',
+    background: 'https://blog.stremio.com/wp-content/uploads/2022/08/shino-1024x632.png',
     resources: ['stream'],
     types: ['movie', 'series', 'anime'],
     idPrefixes: ['tmdb:', 'tt', 'kitsu:'],
@@ -79,6 +79,7 @@ builder.defineStreamHandler(async (args: any) => {
 const addonInterface = builder.getInterface();
 
 const app = express();
+app.set('trust proxy', true);
 app.use((req: any, res: any, next: any) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', '*');
@@ -282,8 +283,12 @@ app.get('/proxy/hls/segment.ts', async (req: any, res: any) => {
     }
 });
 
-const port = process.env.PORT || 7000;
-app.listen(port, () => {
-    console.log(`Vix Simple Addon running at http://127.0.0.1:${port}`);
-    console.log(`Manifest: http://127.0.0.1:${port}/manifest.json`);
-});
+export default app;
+
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    const port = process.env.PORT || 7000;
+    app.listen(port, () => {
+        console.log(`Vix Simple Addon running at http://127.0.0.1:${port}`);
+        console.log(`Manifest: http://127.0.0.1:${port}/manifest.json`);
+    });
+}

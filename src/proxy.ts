@@ -48,7 +48,27 @@ export function resolveUrl(base: string, relative: string): string {
 }
 
 export function getAddonBase(req: any): string {
-    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'http';
-    const host = req.headers['x-forwarded-host'] || req.get('host');
+    const protocol = req.headers['x-forwarded-proto'] || (req.secure ? 'https' : 'http');
+    let host = req.headers['x-forwarded-host'] || req.headers.host || req.get('host');
+    
+    // If the host is just the internal app name (no dots), append the BeamUp domain.
+    // BeamUp app names usually look like c15c09a3abc2-svix. We only append the domain
+    // if it matches this pattern so that it doesn't interfere with Render or local dev.
+    if (host && !host.includes('.') && host !== 'localhost' && process.env.BEAMUP_PROJECT_NAME) {
+        // If we have an environment variable from BeamUp, we can definitely append
+        host = `${host}.a.baby-beamup.club`;
+    } else if (host && !host.includes('.') && host !== 'localhost') {
+        // Fallback: append ONLY if it looks like a typical dokku internal name
+        // (starts with alphanumeric, has an internal hyphen, etc.)
+        if (/^[a-z0-9]+-[a-z0-9]+$/i.test(host)) {
+            host = `${host}.a.baby-beamup.club`;
+        }
+    }
+    
+    // If x-forwarded-host is a list (from multiple proxies), take the first one
+    if (host && host.includes(',')) {
+        host = host.split(',')[0].trim();
+    }
+    
     return `${protocol}://${host}`;
 }
