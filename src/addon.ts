@@ -12,7 +12,7 @@ const manifest = {
     name: 'SelfVix🤌',
     description: 'Self VixSrc and VixCloud',
     logo: 'https://icv.stremio.dpdns.org/prisonmike.png',
-    background: 'https://blog.stremio.com/wp-content/uploads/2022/08/shino-1024x632.png',
+    background: 'https://i.imgur.com/ebLhy9z.jpeg',
     resources: ['stream'],
     types: ['movie', 'series', 'anime'],
     idPrefixes: ['tmdb:', 'tt', 'kitsu:'],
